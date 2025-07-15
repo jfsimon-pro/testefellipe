@@ -72,6 +72,17 @@ if ($curso['tipo'] === 'aulas') {
         header('Location: curso.php?id=' . $curso_id . '&aula=' . $aula_id);
         exit;
     }
+    // Marcar aula como concluída E avançar para próxima
+    if (isset($_POST['concluir_e_avancar']) && isset($_POST['aula_id']) && isset($_POST['proxima_aula'])) {
+        $aula_id = intval($_POST['aula_id']);
+        $proxima_aula = intval($_POST['proxima_aula']);
+        if (!isset($prog_aula[$aula_id]) || !$prog_aula[$aula_id]) {
+            $stmt = $pdo->prepare('INSERT INTO progresso_aula (id_usuario, id_aula, concluida, data_conclusao) VALUES (?, ?, 1, NOW()) ON DUPLICATE KEY UPDATE concluida = 1, data_conclusao = NOW()');
+            $stmt->execute([$usuario_id, $aula_id]);
+        }
+        header('Location: curso.php?id=' . $curso_id . '&aula=' . $proxima_aula);
+        exit;
+    }
     $aula_id = isset($_GET['aula']) ? intval($_GET['aula']) : ($aulas[0]['id'] ?? 0);
     $aula_atual = null;
     foreach ($aulas as $a) { if ($a['id'] == $aula_id) $aula_atual = $a; }
@@ -177,7 +188,11 @@ function youtube_embed_url($url) {
                         <a href="?id=<?php echo $curso_id; ?>&aula=<?php echo $aula_anterior; ?>" class="btn" style="margin-right:10px; padding:6px 18px; font-size:0.98rem;">&larr; Aula anterior</a>
                     <?php endif; ?>
                     <?php if ($aula_proxima !== null): ?>
-                        <a href="?id=<?php echo $curso_id; ?>&aula=<?php echo $aula_proxima; ?>" class="btn" style="padding:6px 18px; font-size:0.98rem;">Próxima aula &rarr;</a>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="aula_id" value="<?php echo $aula_atual['id']; ?>">
+                            <input type="hidden" name="proxima_aula" value="<?php echo $aula_proxima; ?>">
+                            <button type="submit" name="concluir_e_avancar" class="btn" style="padding:6px 18px; font-size:0.98rem;">Próxima aula &rarr;</button>
+                        </form>
                     <?php endif; ?>
                     </div>
                     <?php if ($aula_atual['video_url']): ?>

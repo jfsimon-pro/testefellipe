@@ -1,6 +1,9 @@
 <?php
 // Arquivo de conexão com o banco de dados usando PDO
-
+$DB_HOST = 'localhost';
+$DB_NAME = 'u722728962_testefer';
+$DB_USER = 'u722728962_testefer'; // Troque pelo seu usuário do banco
+$DB_PASS = 'testFer777!';   // Troque pela sua senha do banco
 
 try {
     $pdo = new PDO(

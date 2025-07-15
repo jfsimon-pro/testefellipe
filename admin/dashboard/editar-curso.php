@@ -84,6 +84,16 @@ if ($curso['tipo'] === 'aulas') {
     <meta charset="UTF-8">
     <title>Editar Curso</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: 'textarea[name="texto"]',
+        menubar: false,
+        plugins: 'lists link',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link',
+        branding: false
+      });
+    </script>
     <style>
         body { background: #f7f8fa; font-family: 'Montserrat', Arial, sans-serif; }
         .container { max-width: 800px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 2px 12px #0001; padding: 32px 24px; }

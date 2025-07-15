@@ -10,9 +10,20 @@ if (isset($_POST['criar_curso'])) {
     $nome = trim($_POST['nome'] ?? '');
     $categoria = trim($_POST['categoria'] ?? '');
     $tipo = $_POST['tipo'] ?? '';
+    $capa_nome = null;
+    // Upload da capa
+    if (isset($_FILES['capa']) && $_FILES['capa']['error'] === UPLOAD_ERR_OK) {
+        $ext = strtolower(pathinfo($_FILES['capa']['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, ['jpg','jpeg','png'])) {
+            $capa_nome = uniqid('capa_') . '.' . $ext;
+            move_uploaded_file($_FILES['capa']['tmp_name'], '../../uploads/' . $capa_nome);
+        } else {
+            $mensagem = 'A imagem de capa deve ser JPG ou PNG.';
+        }
+    }
     if ($nome && $tipo && in_array($tipo, ['pdf','aulas'])) {
-        $stmt = $pdo->prepare('INSERT INTO cursos (nome, tipo, categoria) VALUES (?, ?, ?)');
-        $stmt->execute([$nome, $tipo, $categoria]);
+        $stmt = $pdo->prepare('INSERT INTO cursos (nome, tipo, categoria, capa) VALUES (?, ?, ?, ?)');
+        $stmt->execute([$nome, $tipo, $categoria, $capa_nome]);
         $curso_id = $pdo->lastInsertId();
         if ($tipo === 'pdf' && isset($_FILES['pdf']) && $_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
             $pdf_nome = uniqid('pdf_') . '_' . basename($_FILES['pdf']['name']);
@@ -21,7 +32,7 @@ if (isset($_POST['criar_curso'])) {
             $stmt->execute([$curso_id, $pdf_nome]);
         }
         $mensagem = 'Curso criado com sucesso!';
-    } else {
+    } else if (!$mensagem) {
         $mensagem = 'Preencha todos os campos obrigatórios.';
     }
 }
@@ -88,6 +99,8 @@ $cursos_aulas = $pdo->query("SELECT * FROM cursos WHERE tipo = 'aulas' ORDER BY 
                     <option value="pdf">PDF Único</option>
                     <option value="aulas">Aulas</option>
                 </select>
+                <label for="capa">Imagem de Capa (JPG ou PNG)</label>
+                <input type="file" id="capa" name="capa" accept="image/jpeg,image/png">
                 <div id="pdf-upload" style="display:none;">
                     <label for="pdf">Upload do PDF *</label>
                     <input type="file" id="pdf" name="pdf" accept="application/pdf">

@@ -50,10 +50,11 @@ $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <span class="course-category"><?php echo htmlspecialchars($curso['categoria']); ?></span>
                     </div>
                     <div class="data">Data: <?php echo date('d/m/Y', strtotime($curso['data_criacao'])); ?></div>
-                    <form method="post" onsubmit="return confirm('Excluir este curso?');">
+                    <form method="post" onsubmit="return confirm('Excluir este curso?');" style="display:inline-block;">
                         <input type="hidden" name="excluir_id" value="<?php echo $curso['id']; ?>">
                         <button type="submit" class="course-btn">Excluir</button>
                     </form>
+                    <a href="editar-curso.php?id=<?php echo $curso['id']; ?>" class="course-btn" style="background:#2d3e50; color:#fff; margin-left:6px;">Editar</a>
                 </div>
             <?php endforeach; ?>
             <?php if (empty($cursos)): ?>

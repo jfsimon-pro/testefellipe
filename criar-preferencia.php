@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 require_once 'includes/mp-config.php';
+require_once 'includes/db.php';
 
 // Recebe dados do POST
 $nome = trim($_POST['nome'] ?? '');
@@ -24,7 +25,7 @@ $preference = [
         'email' => $email
     ],
     'payment_methods' => [
-        'excluded_payment_types' => [['id' => 'ticket']], // Exemplo: excluir boleto se quiser
+        'excluded_payment_types' => [['id' => 'ticket']],
         'installments' => 1
     ],
     'back_urls' => [
@@ -51,6 +52,12 @@ curl_close($ch);
 
 if ($httpcode >= 200 && $httpcode < 300) {
     $data = json_decode($response, true);
+    // Salva compra pendente
+    if (!empty($data['id'])) {
+        require_once 'includes/db.php';
+        $stmt = $pdo->prepare('INSERT IGNORE INTO compras_pendentes (preference_id, nome, email) VALUES (?, ?, ?)');
+        $stmt->execute([$data['id'], $nome, $email]);
+    }
     echo json_encode(['id' => $data['id'] ?? null, 'init_point' => $data['init_point'] ?? null]);
 } else {
     http_response_code(500);

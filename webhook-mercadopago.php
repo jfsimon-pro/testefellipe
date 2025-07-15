@@ -43,6 +43,18 @@ $email = $pagamento['payer']['email'] ?? '';
 $nome = $pagamento['payer']['first_name'] ?? '';
 $valor = $pagamento['transaction_amount'] ?? 0;
 $mp_id = $pagamento['id'] ?? '';
+$preference_id = $pagamento['order']['id'] ?? ($pagamento['preference_id'] ?? null);
+
+// Buscar nome e email reais na tabela compras_pendentes
+if ($preference_id) {
+    $stmt = $pdo->prepare('SELECT nome, email FROM compras_pendentes WHERE preference_id = ? LIMIT 1');
+    $stmt->execute([$preference_id]);
+    $pendente = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($pendente) {
+        $nome = $pendente['nome'];
+        $email = $pendente['email'];
+    }
+}
 
 if (!$email) {
     http_response_code(200);

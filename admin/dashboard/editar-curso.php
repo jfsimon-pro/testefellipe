@@ -84,7 +84,7 @@ if ($curso['tipo'] === 'aulas') {
     <meta charset="UTF-8">
     <title>Editar Curso</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/1hispykpkdfak92on83x9343cqag1qfknr1oswvxs2moez9g/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
       tinymce.init({
         selector: 'textarea[name="texto"]',

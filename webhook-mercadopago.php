@@ -33,6 +33,7 @@ if ($httpcode < 200 || $httpcode >= 300) {
     exit('ok');
 }
 $pagamento = json_decode($resp, true);
+file_put_contents('webhook.log', "Dados do pagamento: " . print_r($pagamento, true) . "\n", FILE_APPEND);
 if (($pagamento['status'] ?? '') !== 'approved') {
     http_response_code(200);
     exit('ok');
@@ -80,7 +81,8 @@ foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $curso) {
 // Envia e-mail com dados de acesso
 if ($senha_temporaria) {
     $body = "<p>Olá, $nome!</p>\n<p>Seu acesso à plataforma foi liberado.</p>\n<p><b>Login:</b> $email<br><b>Senha temporária:</b> $senha_temporaria</p>\n<p>Acesse: <a href='https://" . $_SERVER['HTTP_HOST'] . "/login.php'>https://" . $_SERVER['HTTP_HOST'] . "/login.php</a></p>\n<p>Recomende alterá-la após o primeiro acesso.</p>";
-    sendMail($email, 'Acesso liberado - Plataforma Educacional', $body);
+    $ok = sendMail($email, 'Acesso liberado - Plataforma Educacional', $body);
+    file_put_contents('webhook.log', "Envio de e-mail para $email: " . ($ok ? 'OK' : 'FALHA') . "\n", FILE_APPEND);
 }
 
 http_response_code(200);

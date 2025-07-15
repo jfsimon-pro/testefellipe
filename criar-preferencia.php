@@ -17,7 +17,7 @@ $preference = [
         'title' => 'Acesso à Plataforma Educacional',
         'quantity' => 1,
         'currency_id' => 'BRL',
-        'unit_price' => 99.90
+        'unit_price' => 2.00
     ]],
     'payer' => [
         'name' => $nome,

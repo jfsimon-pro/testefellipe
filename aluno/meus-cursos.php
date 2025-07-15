@@ -35,6 +35,16 @@ usort($cursos_filtrados, function($a, $b) use ($ordem) {
     if ($ordem === 'asc') return strtotime($a['data_criacao']) - strtotime($b['data_criacao']);
     return strtotime($b['data_criacao']) - strtotime($a['data_criacao']);
 });
+
+// Processar matrícula manual
+if (isset($_POST['matricular_id'])) {
+    $curso_id = intval($_POST['matricular_id']);
+    $usuario_id = $_SESSION['usuario_id'];
+    $stmt = $pdo->prepare('INSERT IGNORE INTO matriculas (id_usuario, id_curso) VALUES (?, ?)');
+    $stmt->execute([$usuario_id, $curso_id]);
+    header('Location: curso.php?id=' . $curso_id);
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -93,7 +103,10 @@ usort($cursos_filtrados, function($a, $b) use ($ordem) {
                     <?php if (in_array($curso['id'], $matriculados)): ?>
                         <a href="curso.php?id=<?php echo $curso['id']; ?>"><button class="course-btn">Acessar</button></a>
                     <?php else: ?>
-                        <button class="course-btn" style="background:#bbb; color:#fff; cursor:not-allowed;" disabled>Não matriculado</button>
+                        <form method="post" style="margin:0;">
+                            <input type="hidden" name="matricular_id" value="<?php echo $curso['id']; ?>">
+                            <button type="submit" class="course-btn" style="background:#2d3e50; color:#fff;">Matricular-se</button>
+                        </form>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>

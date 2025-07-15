@@ -89,6 +89,39 @@ if ($curso['tipo'] === 'aulas') {
       tinymce.init({
         selector: 'textarea[name="texto"]',
         menubar: false,
+        plugins: 'lists link image imagetools',
+        toolbar: 'undo redo | bold italic underline | bullist numlist | link | image',
+        branding: false,
+        images_upload_url: '/admin/dashboard/upload-image.php',
+        automatic_uploads: true,
+        images_upload_handler: function (blobInfo, success, failure) {
+          var xhr, formData;
+          xhr = new XMLHttpRequest();
+          xhr.withCredentials = false;
+          xhr.open('POST', '/admin/dashboard/upload-image.php');
+          xhr.onload = function() {
+            var json;
+            if (xhr.status != 200) {
+              failure('Erro: ' + xhr.status);
+              return;
+            }
+            json = JSON.parse(xhr.responseText);
+            if (!json || typeof json.location != 'string') {
+              failure('Resposta inválida do servidor');
+              return;
+            }
+            success(json.location);
+          };
+          formData = new FormData();
+          formData.append('file', blobInfo.blob(), blobInfo.filename());
+          xhr.send(formData);
+        }
+      });
+    </script>
+    <script>
+      tinymce.init({
+        selector: 'textarea[name="texto"]',
+        menubar: false,
         plugins: 'lists link',
         toolbar: 'undo redo | bold italic underline | bullist numlist | link',
         branding: false

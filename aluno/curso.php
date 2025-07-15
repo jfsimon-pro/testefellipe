@@ -184,7 +184,7 @@ function youtube_embed_url($url) {
                         <iframe class="video-embed" src="<?php echo htmlspecialchars(youtube_embed_url($aula_atual['video_url'])); ?>" frameborder="0" allowfullscreen></iframe>
                     <?php endif; ?>
                     <?php if ($aula_atual['texto']): ?>
-                        <div style="margin-bottom:12px;"><?php echo nl2br(htmlspecialchars($aula_atual['texto'])); ?></div>
+                        <div style="margin-bottom:12px;"><?php echo $aula_atual['texto']; ?></div>
                     <?php endif; ?>
                     <?php if ($aula_atual['arquivo_pdf']): ?>
                         <a class="pdf-link" href="../uploads/<?php echo htmlspecialchars($aula_atual['arquivo_pdf']); ?>" target="_blank">Baixar PDF da aula</a>

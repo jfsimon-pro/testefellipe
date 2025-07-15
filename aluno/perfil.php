@@ -77,6 +77,7 @@ if (isset($_POST['alterar_senha'])) {
 </head>
 <body>
     <div class="container">
+        <a href="../logout.php" style="float:right; margin-top:8px; background:#e74c3c; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Logout</a>
         <h2>Perfil do Aluno</h2>
         <?php if ($mensagem): ?>
             <div class="mensagem"><?php echo htmlspecialchars($mensagem); ?></div>

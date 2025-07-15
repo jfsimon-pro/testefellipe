@@ -103,6 +103,7 @@ if ($curso['tipo'] === 'aulas') {
 </head>
 <body>
     <div class="container">
+        <a href="../logout.php" style="float:right; margin-top:8px; background:#e74c3c; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Logout</a>
         <a href="cursos-matriculados.php" class="btn" style="margin-bottom:18px; display:inline-block;">&larr; Voltar</a>
         <h2><?php echo htmlspecialchars($curso['nome']); ?></h2>
         <div><b>Categoria:</b> <?php echo htmlspecialchars($curso['categoria']); ?> | <b>Tipo:</b> <?php echo $curso['tipo'] === 'pdf' ? 'PDF Único' : 'Aulas'; ?></div>

@@ -7,6 +7,12 @@ require_once '../includes/db.php';
 $stmt = $pdo->query('SELECT * FROM cursos ORDER BY data_criacao DESC');
 $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Buscar cursos em que o aluno está matriculado
+$usuario_id = $_SESSION['usuario_id'];
+$stmt = $pdo->prepare('SELECT id_curso FROM matriculas WHERE id_usuario = ?');
+$stmt->execute([$usuario_id]);
+$matriculados = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'id_curso');
+
 // Obter categorias distintas
 $categorias = array_unique(array_filter(array_map(function($c){ return $c['categoria']; }, $cursos)));
 
@@ -54,6 +60,7 @@ usort($cursos_filtrados, function($a, $b) use ($ordem) {
 </head>
 <body>
     <div class="container">
+        <a href="../logout.php" style="float:right; margin-top:8px; background:#e74c3c; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Logout</a>
         <h2>Todos os Cursos Disponíveis</h2>
         <form method="get" style="margin-bottom:24px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:center;">
             <input type="text" name="busca" placeholder="Buscar por nome" value="<?php echo htmlspecialchars($busca); ?>" style="padding:8px 12px; border-radius:8px; border:1px solid #ccc; min-width:180px;">
@@ -83,7 +90,11 @@ usort($cursos_filtrados, function($a, $b) use ($ordem) {
                         <span class="course-category"><?php echo htmlspecialchars($curso['categoria']); ?></span>
                     </div>
                     <div>Data de lançamento: <?php echo date('d/m/Y', strtotime($curso['data_criacao'])); ?></div>
-                    <a href="curso.php?id=<?php echo $curso['id']; ?>"><button class="course-btn">Acessar</button></a>
+                    <?php if (in_array($curso['id'], $matriculados)): ?>
+                        <a href="curso.php?id=<?php echo $curso['id']; ?>"><button class="course-btn">Acessar</button></a>
+                    <?php else: ?>
+                        <button class="course-btn" style="background:#bbb; color:#fff; cursor:not-allowed;" disabled>Não matriculado</button>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
             <?php if (empty($cursos_filtrados)): ?>

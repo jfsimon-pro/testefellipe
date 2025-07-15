@@ -49,6 +49,7 @@ foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
 </head>
 <body>
     <div class="container">
+        <a href="../logout.php" style="float:right; margin-top:8px; background:#e74c3c; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Logout</a>
         <h2>Cursos Matriculados</h2>
         <div class="courses-grid">
             <?php foreach ($cursos as $curso): ?>

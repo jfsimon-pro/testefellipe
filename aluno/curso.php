@@ -76,6 +76,19 @@ if ($curso['tipo'] === 'aulas') {
     $aula_atual = null;
     foreach ($aulas as $a) { if ($a['id'] == $aula_id) $aula_atual = $a; }
 }
+
+function youtube_embed_url($url) {
+    if (preg_match('~youtu\.be/([\w-]+)~', $url, $m)) {
+        return 'https://www.youtube.com/embed/' . $m[1];
+    }
+    if (preg_match('~youtube\.com/watch\?v=([\w-]+)~', $url, $m)) {
+        return 'https://www.youtube.com/embed/' . $m[1];
+    }
+    if (preg_match('~youtube\.com/embed/([\w-]+)~', $url, $m)) {
+        return $url;
+    }
+    return $url;
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -168,7 +181,7 @@ if ($curso['tipo'] === 'aulas') {
                     <?php endif; ?>
                     </div>
                     <?php if ($aula_atual['video_url']): ?>
-                        <iframe class="video-embed" src="<?php echo htmlspecialchars($aula_atual['video_url']); ?>" frameborder="0" allowfullscreen></iframe>
+                        <iframe class="video-embed" src="<?php echo htmlspecialchars(youtube_embed_url($aula_atual['video_url'])); ?>" frameborder="0" allowfullscreen></iframe>
                     <?php endif; ?>
                     <?php if ($aula_atual['texto']): ?>
                         <div style="margin-bottom:12px;"><?php echo nl2br(htmlspecialchars($aula_atual['texto'])); ?></div>

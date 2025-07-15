@@ -34,6 +34,7 @@ $total_receita = $stmt->fetchColumn() ?: 0;
 </head>
 <body>
     <div class="container">
+        <a href="../logout.php" style="float:right; margin-top:8px; background:#e74c3c; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Logout</a>
         <h2>Dashboard do Admin</h2>
         <div class="stats">
             <div class="stat">

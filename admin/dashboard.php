@@ -52,6 +52,7 @@ $total_receita = $stmt->fetchColumn() ?: 0;
         <div class="admin-links">
             <a href="dashboard/alunos.php">Gestão de Alunos</a>
             <a href="dashboard/lancar-curso.php">Cadastrar Curso</a>
+            <a href="dashboard/cursos.php">Gerenciar Cursos</a>
         </div>
     </div>
 </body>

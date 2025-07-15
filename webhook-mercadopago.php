@@ -43,7 +43,14 @@ $email = $pagamento['payer']['email'] ?? '';
 $nome = $pagamento['payer']['first_name'] ?? '';
 $valor = $pagamento['transaction_amount'] ?? 0;
 $mp_id = $pagamento['id'] ?? '';
-$preference_id = $pagamento['preference_id'] ?? null;
+file_put_contents('webhook.log', "DEBUG preference_id: " .
+    'preference_id=' . ($pagamento['preference_id'] ?? 'NULL') . ' | ' .
+    'metadata=' . (($pagamento['metadata']['preference_id'] ?? 'NULL')) . ' | ' .
+    'additional_info=' . (($pagamento['additional_info']['preference_id'] ?? 'NULL')) . "\n", FILE_APPEND);
+
+$preference_id = $pagamento['preference_id']
+    ?? ($pagamento['metadata']['preference_id'] ?? null)
+    ?? ($pagamento['additional_info']['preference_id'] ?? null);
 
 // Buscar nome e email reais na tabela compras_pendentes
 if ($preference_id) {

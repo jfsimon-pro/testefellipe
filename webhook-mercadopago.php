@@ -43,7 +43,7 @@ $email = $pagamento['payer']['email'] ?? '';
 $nome = $pagamento['payer']['first_name'] ?? '';
 $valor = $pagamento['transaction_amount'] ?? 0;
 $mp_id = $pagamento['id'] ?? '';
-$preference_id = $pagamento['order']['id'] ?? ($pagamento['preference_id'] ?? null);
+$preference_id = $pagamento['preference_id'] ?? null;
 
 // Buscar nome e email reais na tabela compras_pendentes
 if ($preference_id) {

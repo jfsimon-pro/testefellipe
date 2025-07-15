@@ -1,7 +1,6 @@
 <?php
-// Configurações do Mercado Pago
-// Troque para ambiente de produção quando for lançar!
-define('MP_PUBLIC_KEY', 'APP_USR-70db0715-bad2-46ca-b67c-269218f67c1f');
-define('MP_ACCESS_TOKEN', 'APP_USR-8308100164878277-071514-993fef14f4929969eefba07e6e0ca047-509701527');
+// Configurações do Mercado Pago (agora em modo TESTE)
+define('MP_PUBLIC_KEY', 'TEST-1725c7cc-7ed8-44b3-8c78-d5a350163861');
+define('MP_ACCESS_TOKEN', 'TEST-8308100164878277-071514-f8d654575f29c5a2b22095692f139950-509701527');
 define('MP_CLIENT_ID', '8308100164878277');
 define('MP_CLIENT_SECRET', 'zm1L8FarPn67VXIriGhhe3JGKH5KURSN'); 

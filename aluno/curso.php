@@ -404,6 +404,11 @@ function youtube_embed_url($url) {
             .aula-nav .btn-primary:hover, .aula-nav form button.btn-primary:hover {
                 background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
             }
+            .aula-content img{
+                max-width: 95%;
+                height: auto;
+                padding: 0px;
+            }
         }
     </style>
 </head>

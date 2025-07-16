@@ -210,12 +210,32 @@
     <footer>
         &copy; <?php echo date('Y'); ?> Plataforma Fellipe Ferini. Todos os direitos reservados.
     </footer>
+    <button id="btnInstallPWA" style="display:none;position:fixed;bottom:24px;right:24px;z-index:9999;padding:12px 24px;background:linear-gradient(135deg,#0284c7,#0369a1);color:#fff;border:none;border-radius:24px;font-size:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.12);cursor:pointer;">
+  <i class="fa fa-download" style="margin-right:8px"></i> Baixar app
+</button>
     <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/service-worker.js');
   });
 }
+let deferredPrompt;
+const btnInstall = document.getElementById('btnInstallPWA');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btnInstall.style.display = 'block';
+});
+btnInstall.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      btnInstall.style.display = 'none';
+    }
+    deferredPrompt = null;
+  }
+});
 </script>
 </body>
 </html>

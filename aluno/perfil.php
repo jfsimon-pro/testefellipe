@@ -188,9 +188,18 @@ if (isset($_POST['alterar_senha'])) {
             transition: background 0.3s;
         }
         .logout-btn:hover { background: #dc2626; }
-        @media (max-width: 600px) {
-            .container { padding: 24px 8px 24px 8px; }
-            .profile-title { font-size: 20px; }
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 16px;
+                margin: 0;
+            }
+            .profile-title {
+                font-size: 20px;
+            }
+            .logout-btn {
+                display: none;
+            }
         }
         /* Floating nav */
         .floating-nav {

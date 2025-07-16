@@ -377,6 +377,33 @@ function youtube_embed_url($url) {
             .logout-btn {
                 display: none;
             }
+            .aula-nav {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            .aula-nav .btn, .aula-nav a, .aula-nav form button {
+                flex: 1;
+                border-radius: 12px !important;
+                font-size: 1rem;
+                padding: 12px 0;
+                margin: 0;
+                min-width: 0;
+                text-align: center;
+                background: #e5e7eb;
+                color: #0ea5e9;
+                border: none;
+                font-weight: 600;
+                transition: background 0.2s, color 0.2s;
+            }
+            .aula-nav .btn-primary, .aula-nav form button.btn-primary {
+                background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+                color: #fff;
+            }
+            .aula-nav .btn-primary:hover, .aula-nav form button.btn-primary:hover {
+                background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            }
         }
     </style>
 </head>
@@ -437,35 +464,9 @@ function youtube_embed_url($url) {
             <?php if ($aula_atual): ?>
                 <div class="aula-content">
                     <h3 style="margin-bottom: 16px; color:#0ea5e9; font-size:1.3rem; font-weight:700;"><?php echo htmlspecialchars($aula_atual['titulo']); ?></h3>
-                    <div style="margin-bottom: 12px; display:flex; gap:8px; flex-wrap:wrap;">
-                    <?php
-                        // Navegação entre aulas
-                        $idx_atual = 0;
-                        foreach ($aulas as $idx => $a) {
-                            if ($a['id'] == $aula_atual['id']) {
-                                $idx_atual = $idx;
-                                break;
-                            }
-                        }
-                        $aula_anterior = $aulas[$idx_atual - 1]['id'] ?? null;
-                        $aula_proxima = $aulas[$idx_atual + 1]['id'] ?? null;
-                    ?>
-                    <?php if ($aula_anterior !== null): ?>
-                        <a href="?id=<?php echo $curso_id; ?>&aula=<?php echo $aula_anterior; ?>" class="btn" style="background:#e5e7eb; color:#0ea5e9;"><i class="fas fa-arrow-left"></i> Aula anterior</a>
-                    <?php endif; ?>
-                    <?php if ($aula_proxima !== null): ?>
-                        <form method="post" style="display:inline;">
-                            <input type="hidden" name="aula_id" value="<?php echo $aula_atual['id']; ?>">
-                            <input type="hidden" name="proxima_aula" value="<?php echo $aula_proxima; ?>">
-                            <button type="submit" name="concluir_e_avancar" class="btn">Próxima aula <i class="fas fa-arrow-right"></i></button>
-                        </form>
-                    <?php endif; ?>
-                    </div>
+                    <div style="margin-bottom: 12px;"><?php echo $aula_atual['texto']; ?></div>
                     <?php if ($aula_atual['video_url']): ?>
                         <iframe class="video-embed" src="<?php echo htmlspecialchars(youtube_embed_url($aula_atual['video_url'])); ?>" frameborder="0" allowfullscreen></iframe>
-                    <?php endif; ?>
-                    <?php if ($aula_atual['texto']): ?>
-                        <div style="margin-bottom:12px;"><?php echo $aula_atual['texto']; ?></div>
                     <?php endif; ?>
                     <?php if ($aula_atual['arquivo_pdf']): ?>
                         <a class="pdf-link" href="../uploads/<?php echo htmlspecialchars($aula_atual['arquivo_pdf']); ?>" target="_blank"><i class="fas fa-file-pdf"></i> Baixar PDF da aula</a>
@@ -478,6 +479,32 @@ function youtube_embed_url($url) {
                             <button type="submit" name="concluir_aula" class="btn">Marcar como concluída</button>
                         <?php endif; ?>
                     </form>
+                </div>
+                <div style="margin-bottom: 12px; display:flex; gap:8px; flex-wrap:wrap;">
+                    <?php
+                        // Navegação entre aulas
+                        $idx_atual = 0;
+                        foreach ($aulas as $idx => $a) {
+                            if ($a['id'] == $aula_atual['id']) {
+                                $idx_atual = $idx;
+                                break;
+                            }
+                        }
+                        $aula_anterior = $aulas[$idx_atual - 1]['id'] ?? null;
+                        $aula_proxima = $aulas[$idx_atual + 1]['id'] ?? null;
+                    ?>
+                    <div class="aula-nav">
+                        <?php if ($aula_anterior !== null): ?>
+                            <a href="?id=<?php echo $curso_id; ?>&aula=<?php echo $aula_anterior; ?>" class="btn">&larr; Aula anterior</a>
+                        <?php endif; ?>
+                        <?php if ($aula_proxima !== null): ?>
+                            <form method="post" style="display:inline;">
+                                <input type="hidden" name="aula_id" value="<?php echo $aula_atual['id']; ?>">
+                                <input type="hidden" name="proxima_aula" value="<?php echo $aula_proxima; ?>">
+                                <button type="submit" name="concluir_e_avancar" class="btn btn-primary">Próxima aula &rarr;</button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
                 </div>
             <?php endif; ?>
         <?php endif; ?>

@@ -91,6 +91,7 @@ if (isset($_POST['matricular_id'])) {
             margin-bottom: 24px;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
         }
         
@@ -350,9 +351,9 @@ if (isset($_POST['matricular_id'])) {
         <div class="header">
             <div class="greeting">Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?></div>
             <div class="main-title">
-                <span class="title-light">Let's Learn</span>
+                <span class="title-light">Plataforma</span>
                 <i class="fas fa-graduation-cap"></i>
-                <span>Something New</span>
+                <span>Ferini Ensina</span>
             </div>
         </div>
         

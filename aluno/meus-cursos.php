@@ -385,8 +385,7 @@ if (isset($_POST['matricular_id'])) {
         <div class="courses-grid">
             <?php foreach (array_slice($cursos_filtrados, 0, 6) as $curso): ?>
                 <div class="course-card" onclick="window.location.href='<?php echo in_array($curso['id'], $matriculados) ? 'curso.php?id=' . $curso['id'] : '#'; ?>'">
-                    <div class="course-image">
-                        <i class="fas fa-book"></i>
+                    <div class="course-image" style="background-image: url('<?php echo $curso['capa'] ? '../uploads/' . htmlspecialchars($curso['capa']) : 'https://via.placeholder.com/300x160/0ea5e9/ffffff?text=Curso'; ?>'); background-size: cover; background-position: center;">
                         <div class="bookmark-icon">
                             <i class="fas fa-bookmark"></i>
                         </div>
@@ -424,8 +423,7 @@ if (isset($_POST['matricular_id'])) {
         <div class="courses-grid">
             <?php foreach (array_slice($cursos_filtrados, 6) as $curso): ?>
                 <div class="course-card" onclick="window.location.href='<?php echo in_array($curso['id'], $matriculados) ? 'curso.php?id=' . $curso['id'] : '#'; ?>'">
-                    <div class="course-image">
-                        <i class="fas fa-graduation-cap"></i>
+                    <div class="course-image" style="background-image: url('<?php echo $curso['capa'] ? '../uploads/' . htmlspecialchars($curso['capa']) : 'https://via.placeholder.com/300x160/0ea5e9/ffffff?text=Curso'; ?>'); background-size: cover; background-position: center;">
                         <div class="bookmark-icon">
                             <i class="fas fa-bookmark"></i>
                         </div>

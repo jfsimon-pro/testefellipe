@@ -377,10 +377,10 @@ if (isset($_POST['matricular_id'])) {
         
         <div class="section-header">
             <div class="section-title">
-                <span>Trending Courses</span>
+                <span>Nossos Cursos</span>
                 <i class="fas fa-fire" style="color: #f97316;"></i>
             </div>
-            <a href="#" class="see-all">See All</a>
+            <a href="#" class="see-all">Ver todos</a>
         </div>
         
         <div class="courses-grid">

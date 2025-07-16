@@ -62,47 +62,233 @@ if (isset($_POST['alterar_senha'])) {
 <head>
     <meta charset="UTF-8">
     <title>Perfil do Aluno</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #f7f8fa; font-family: 'Montserrat', Arial, sans-serif; }
-        .container { max-width: 500px; margin: 40px auto; background: #fff; border-radius: 16px; box-shadow: 0 2px 12px #0001; padding: 32px 24px; }
-        h2 { color: #2d3e50; text-align: center; margin-bottom: 24px; }
-        label { display: block; margin-top: 16px; color: #2d3e50; font-weight: 500; }
-        input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-top: 6px; }
-        .btn { background: #2d3e50; color: #fff; border: none; padding: 10px 28px; border-radius: 8px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 18px; transition: background 0.2s; }
-        .btn:hover { background: #ffb300; color: #222; }
-        .mensagem { margin-top: 18px; color: #2d3e50; text-align: center; }
-        .section { margin-bottom: 32px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #fafafa;
+            font-family: 'Inter', sans-serif;
+            color: #1f2937;
+            padding-bottom: 100px;
+        }
+        .container {
+            max-width: 420px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 40px 32px 32px 32px;
+            position: relative;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .profile-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 32px;
+            margin: 0 auto 16px auto;
+        }
+        .profile-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 4px;
+        }
+        .profile-subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+        .mensagem {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .section {
+            margin-bottom: 32px;
+        }
+        label {
+            display: block;
+            margin-top: 16px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #fff;
+            margin-top: 6px;
+            font-family: 'Inter', sans-serif;
+            transition: border 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        .btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            margin-top: 22px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+        }
+        .btn:active { transform: translateY(0); }
+        .back-btn {
+            background: #e5e7eb;
+            color: #0ea5e9;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .back-btn:hover {
+            background: #cbd5e1;
+            color: #0284c7;
+        }
+        .logout-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: #ef4444;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .logout-btn:hover { background: #dc2626; }
+        @media (max-width: 600px) {
+            .container { padding: 24px 8px 24px 8px; }
+            .profile-title { font-size: 20px; }
+        }
+        /* Floating nav */
+        .floating-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 8px;
+            z-index: 1000;
+        }
+        .nav-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: #fff;
+            color: #6b7280;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-btn.active {
+            background: #0ea5e9;
+            color: #fff;
+        }
+        .nav-btn:hover { background: #f3f4f6; }
+        .nav-btn.active:hover { background: #0284c7; }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="../logout.php" style="float:right; margin-top:8px; background:#e74c3c; color:#fff; padding:8px 18px; border-radius:8px; text-decoration:none; font-weight:bold;">Logout</a>
-        <h2>Perfil do Aluno</h2>
+        <button class="logout-btn" onclick="window.location.href='../logout.php'">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+        <div class="profile-header">
+            <div class="profile-icon"><i class="fas fa-user"></i></div>
+            <div class="profile-title">Meu Perfil</div>
+            <div class="profile-subtitle">Gerencie seus dados e senha</div>
+        </div>
         <?php if ($mensagem): ?>
             <div class="mensagem"><?php echo htmlspecialchars($mensagem); ?></div>
         <?php endif; ?>
         <div class="section">
             <form method="post">
                 <label for="nome">Nome</label>
-                <input type="text" id="nome" name="nome" value="<?php echo htmlspecialchars($usuario['nome']); ?>" required>
+                <input type="text" id="nome" name="nome" class="input-field" value="<?php echo htmlspecialchars($usuario['nome']); ?>" required>
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
+                <input type="email" id="email" name="email" class="input-field" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
                 <button type="submit" name="atualizar_dados" class="btn">Atualizar Dados</button>
             </form>
         </div>
         <div class="section">
             <form method="post">
                 <label for="senha_atual">Senha atual</label>
-                <input type="password" id="senha_atual" name="senha_atual" required>
+                <input type="password" id="senha_atual" name="senha_atual" class="input-field" required>
                 <label for="nova_senha">Nova senha</label>
-                <input type="password" id="nova_senha" name="nova_senha" required>
+                <input type="password" id="nova_senha" name="nova_senha" class="input-field" required>
                 <label for="nova_senha2">Confirmar nova senha</label>
-                <input type="password" id="nova_senha2" name="nova_senha2" required>
+                <input type="password" id="nova_senha2" name="nova_senha2" class="input-field" required>
                 <button type="submit" name="alterar_senha" class="btn">Alterar Senha</button>
             </form>
         </div>
-        <a href="meus-cursos.php" class="btn" style="background:#888;">&larr; Voltar</a>
+        <a href="meus-cursos.php" class="btn back-btn"><i class="fas fa-arrow-left"></i> Voltar</a>
     </div>
+    <div class="floating-nav">
+        <button class="nav-btn" onclick="window.location.href='meus-cursos.php'">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='cursos-matriculados.php'">
+            <i class="fas fa-bookmark"></i>
+        </button>
+        <button class="nav-btn active" onclick="window.location.href='perfil.php'">
+            <i class="fas fa-user"></i>
+        </button>
+        <button class="nav-btn" onclick="window.location.href='../logout.php'">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+    <script>
+        // Marcar botão ativo no menu
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname;
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                if (btn.onclick.toString().includes(currentPage.split('/').pop())) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html> 

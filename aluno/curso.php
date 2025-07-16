@@ -361,6 +361,9 @@ function youtube_embed_url($url) {
                 max-width: 100%;
                 height: 220px;
             }
+            .logout-btn {
+                display: none;
+            }
         }
     </style>
 </head>

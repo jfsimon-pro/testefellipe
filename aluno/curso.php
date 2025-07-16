@@ -317,6 +317,51 @@ function youtube_embed_url($url) {
         }
         .nav-btn:hover { background: #f3f4f6; }
         .nav-btn.active:hover { background: #0284c7; }
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 12px;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .course-title {
+                font-size: 1.3rem;
+            }
+            .aulas-list {
+                gap: 8px;
+            }
+            .aula-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 8px;
+            }
+            .aula-title {
+                font-size: 1rem;
+            }
+            .btn, .aula-btn {
+                width: 100%;
+                font-size: 1rem;
+                padding: 12px 0;
+                margin: 6px 0 0 0;
+                border-radius: 12px;
+            }
+            .back-btn, .logout-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .aula-content {
+                padding: 16px 8px;
+            }
+            .progress-bar-bg {
+                height: 18px;
+            }
+            .video-embed {
+                max-width: 100%;
+                height: 220px;
+            }
+        }
     </style>
 </head>
 <body>

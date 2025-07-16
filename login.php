@@ -35,64 +35,238 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Plataforma Educacional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background: #f7f8fa; font-family: 'Montserrat', Arial, sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #fafafa;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
         .login-container {
-            max-width: 370px;
-            margin: 60px auto;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px #0001;
-            padding: 32px 28px 24px 28px;
-        }
-        h2 { text-align: center; color: #2d3e50; margin-bottom: 24px; }
-        .form-group { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 6px; color: #444; }
-        input[type="email"], input[type="password"] {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #bbb;
-            border-radius: 8px;
-            font-size: 1rem;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px 32px;
         }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 400;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .input-field:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 18px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+        }
+        
         .btn-login {
             width: 100%;
-            background: #2d3e50;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
             color: #fff;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
+            transition: all 0.3s ease;
             margin-top: 8px;
-            transition: background 0.2s;
         }
-        .btn-login:hover { background: #ffb300; color: #222; }
-        .erro { color: #c00; text-align: center; margin-bottom: 12px; }
-        .link { display: block; text-align: right; margin-top: 10px; color: #2d3e50; text-decoration: none; font-size: 0.98rem; }
-        .link:hover { text-decoration: underline; }
+        
+        .btn-login:hover {
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+        
+        .btn-login:active {
+            transform: translateY(0);
+        }
+        
+        .forgot-password {
+            display: block;
+            text-align: left;
+            margin-top: 16px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .forgot-password:hover {
+            color: #0ea5e9;
+        }
+        
+        .signup-section {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .signup-text {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .signup-link {
+            color: #0ea5e9;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .signup-link:hover {
+            color: #0284c7;
+        }
+        
+        .erro {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 24px;
+                margin: 0 16px;
+            }
+            
+            .login-title {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Entrar na Plataforma</h2>
+        <div class="login-header">
+            <h1 class="login-title">Login</h1>
+            <p class="login-subtitle">Digite suas informações</p>
+        </div>
+        
         <?php if ($erro): ?>
             <div class="erro"><?php echo htmlspecialchars($erro); ?></div>
         <?php endif; ?>
+        
         <form method="post" autocomplete="off">
             <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" required autofocus>
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" name="email" id="email" class="input-field" placeholder="abc@email.com" required autofocus>
             </div>
+            
             <div class="form-group">
-                <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha" required>
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" name="senha" id="senha" class="input-field" placeholder="Enter you password" required>
+                <button type="button" class="password-toggle" onclick="togglePassword()">
+                    <i class="fas fa-eye-slash" id="password-icon"></i>
+                </button>
             </div>
-            <button type="submit" class="btn-login">Entrar</button>
+            
+            <button type="submit" class="btn-login">Login</button>
         </form>
-        <a href="redefinir-senha.php" class="link">Esqueci minha senha</a>
+        
+        <a href="redefinir-senha.php" class="forgot-password">Esqueceu a senha?</a>
+        
+        <div class="signup-section">
+            <p class="signup-text">Não tem uma conta?</p>
+            <a href="comprar-acesso.php" class="signup-link">Compre!</a>
+        </div>
     </div>
+    
+    <script>
+        function togglePassword() {
+            const passwordField = document.getElementById('senha');
+            const passwordIcon = document.getElementById('password-icon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordIcon.className = 'fas fa-eye';
+            } else {
+                passwordField.type = 'password';
+                passwordIcon.className = 'fas fa-eye-slash';
+            }
+        }
+    </script>
 </body>
 </html> 

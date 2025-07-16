@@ -333,14 +333,27 @@ function youtube_embed_url($url) {
                 gap: 8px;
             }
             .aula-item {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
                 padding: 10px 8px;
+                gap: 8px;
             }
             .aula-title {
                 font-size: 1rem;
+                flex: 1;
+                min-width: 0;
             }
-            .btn, .aula-btn {
+            .aula-btn {
+                width: auto;
+                min-width: 70px;
+                padding: 8px 18px;
+                margin: 0;
+                border-radius: 12px;
+                font-size: 1rem;
+                white-space: nowrap;
+            }
+            .btn {
                 width: 100%;
                 font-size: 1rem;
                 padding: 12px 0;

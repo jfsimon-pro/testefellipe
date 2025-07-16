@@ -287,6 +287,12 @@ function youtube_embed_url($url) {
             gap: 8px;
             z-index: 1000;
         }
+        .aula-content ol, .aula-content ul {
+            padding: 30px;
+        }
+        .aula-content img {
+            padding: 10px;
+        }
         .nav-btn {
             width: 48px;
             height: 48px;
@@ -345,8 +351,11 @@ function youtube_embed_url($url) {
                 <?php foreach ($aulas as $a): ?>
                     <div class="aula-item<?php echo ($aula_atual && $aula_atual['id'] == $a['id']) ? ' aula-atual' : ''; ?>">
                         <span class="aula-title"><?php echo htmlspecialchars($a['titulo']); ?></span>
-                        <?php if (!empty($prog_aula[$a['id']])): ?><span class="aula-concluida"><i class="fas fa-check-circle"></i> Concluída</span><?php endif; ?>
-                        <a href="?id=<?php echo $curso_id; ?>&aula=<?php echo $a['id']; ?>" class="aula-btn">Ver</a>
+                        <div class="alinha-elementos-concluidos">
+                            <?php if (!empty($prog_aula[$a['id']])): ?><span class="aula-concluida"><i class="fas fa-check-circle"></i> Concluída</span><?php endif; ?>
+                            <a href="?id=<?php echo $curso_id; ?>&aula=<?php echo $a['id']; ?>" class="aula-btn">Ver</a>
+                        </div>
+                        
                     </div>
                 <?php endforeach; ?>
             </div>

@@ -73,13 +73,17 @@ if (isset($_POST['alterar_senha'])) {
             padding-bottom: 100px;
         }
         .container {
-            max-width: 420px;
-            margin: 40px auto;
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             padding: 40px 32px 32px 32px;
             position: relative;
+            margin: 40px auto;
+        }
+        @media (min-width: 769px) {
+            .container {
+                max-width: 420px;
+            }
         }
         .profile-header {
             text-align: center;

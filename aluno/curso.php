@@ -356,7 +356,7 @@ function youtube_embed_url($url) {
             .btn {
                 width: 100%;
                 font-size: 1rem;
-                padding: 12px 0;
+                padding: 12px 10px;
                 margin: 6px 0 0 0;
                 border-radius: 12px;
             }
@@ -387,7 +387,7 @@ function youtube_embed_url($url) {
                 flex: 1;
                 border-radius: 12px !important;
                 font-size: 1rem;
-                padding: 12px 0;
+                padding: 12px 10px;
                 margin: 0;
                 min-width: 0;
                 text-align: center;

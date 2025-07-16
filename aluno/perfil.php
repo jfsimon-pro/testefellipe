@@ -190,9 +190,12 @@ if (isset($_POST['alterar_senha'])) {
         .logout-btn:hover { background: #dc2626; }
         @media (max-width: 768px) {
             .container {
-                max-width: 100%;
-                padding: 16px;
-                margin: 0;
+                max-width: 100% !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 16px !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
             }
             .profile-title {
                 font-size: 20px;

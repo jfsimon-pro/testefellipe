@@ -176,9 +176,10 @@ foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row) {
         }
         .logout-btn:hover { background: #dc2626; }
         @media (max-width: 768px) {
-            .container { padding: 12px; }
-            .main-title { font-size: 20px; }
-            .courses-grid { grid-template-columns: 1fr; }
+            .container { max-width: 100%; padding: 8px; margin: 0; }
+            .main-title { font-size: 18px; }
+            .courses-grid { grid-template-columns: 1fr; gap: 12px; }
+            .course-card { min-width: 0; }
         }
         /* Floating nav */
         .floating-nav {

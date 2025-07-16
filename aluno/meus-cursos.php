@@ -339,6 +339,12 @@ if (isset($_POST['matricular_id'])) {
                 padding: 6px 12px;
                 font-size: 12px;
             }
+            .logout-btn {
+                display: none;
+            }
+            .greeting {
+                display: none;
+            }
         }
     </style>
 </head>

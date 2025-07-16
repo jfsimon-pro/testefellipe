@@ -307,6 +307,9 @@ function youtube_embed_url($url) {
             align-items: center;
             justify-content: center;
         }
+        .alinha-elementos-concluidos a {
+            text-decoration: none;
+        }
         .nav-btn.active {
             background: #0ea5e9;
             color: #fff;
